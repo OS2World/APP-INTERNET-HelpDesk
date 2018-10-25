@@ -1,0 +1,1 @@
+rc -n -r VNCVIEW.RC && rc -n -x2 VNCVIEW.RES ..\..\host\vncview.exe

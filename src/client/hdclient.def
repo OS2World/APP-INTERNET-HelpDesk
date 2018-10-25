@@ -1,0 +1,14 @@
+;*****************************************************************************
+;* hdclient.def
+;*
+;* HelpDesk for OS/2 - v1.00
+;* Copyright 2018 OS/2 VOICE      - all rights reserved
+;* Copyright 2018 Richard L Walsh - all rights reserved
+;*
+;*****************************************************************************
+
+NAME hdclient
+DESCRIPTION 'HelpDesk for OS/2 v1.00 - (C)2018 OS/2 VOICE  (C)2018 RL Walsh'
+PROTMODE
+BASE=0x10000
+

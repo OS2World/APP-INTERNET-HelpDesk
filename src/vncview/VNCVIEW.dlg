@@ -1,0 +1,113 @@
+#ifndef OS2_INCLUDED
+   #ifndef INCL_NLS
+      #define INCL_NLS
+   #endif
+   #include <os2.h>
+#endif
+
+#ifndef BS_NOTEBOOK
+   #define BS_NOTEBOOK 8
+#endif
+
+#ifndef FCF_CLOSEBUTTON
+   #define FCF_CLOSEBUTTON 0x04000000L
+#endif
+
+CODEPAGE 850
+DLGTEMPLATE 100
+BEGIN
+    DIALOG  "PM VNC Viewer - connect to", 0, 0, 0, 186, 52, , FCF_DLGBORDER | FCF_SYSMENU | FCF_TITLEBAR
+            PRESPARAMS PP_FONTNAMESIZE, "9.WarpSans"
+    BEGIN
+        ICON            1, 65535, 5, 32, 20, 16
+        LTEXT           "HelpDesk Client:", 65535, 32, 37, 49, 8, DT_VCENTER
+        COMBOBOX        "", 101, 81, 0, 100, 46, NOT CBS_SIMPLE | CBS_DROPDOWNLIST
+/*
+        LTEXT           "host:display", 65535, 81, 27, 60, 8
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00808080L
+        LTEXT           "e.g. snoopy:2", 65535, 81, 19, 64, 8
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00808080L
+*/
+        DEFPUSHBUTTON   "Co~nnect", 1, 5, 3, 50, 12
+        PUSHBUTTON      "~Cancel", 2, 57, 3, 50, 12
+        PUSHBUTTON      "~Options...", 102, 109, 3, 50, 12
+    END
+END
+
+CODEPAGE 850
+DLGTEMPLATE 110
+BEGIN
+    DIALOG  "", 0, 0, 0, 163, 78, , FCF_DLGBORDER | FCF_TITLEBAR
+            PRESPARAMS PP_FONTNAMESIZE, "9.WarpSans"
+    BEGIN
+        LTEXT           "Pixel Format:", 65535, 5, 64, 70, 8, DT_VCENTER
+        COMBOBOX        "32bits", 112, 76, 22, 82, 52, NOT CBS_SIMPLE | CBS_DROPDOWNLIST
+        LTEXT           "Preferred Encoding:", 65535, 5, 52, 70, 8, DT_VCENTER
+        COMBOBOX        "Hextile", 113, 76, 9, 82, 52, NOT CBS_SIMPLE | CBS_DROPDOWNLIST
+        AUTOCHECKBOX    "Request shared session", 114, 5, 39, 114, 10
+        AUTOCHECKBOX    "View only", 115, 5, 29, 114, 10
+        AUTOCHECKBOX    "Deiconify on Bell", 116, 5, 19, 114, 10
+        DEFPUSHBUTTON   "Co~nnect", 1, 5, 3, 50, 12
+        PUSHBUTTON      "~Done", 2, 57, 3, 50, 12
+    END
+END
+
+CODEPAGE 850
+DLGTEMPLATE 111
+BEGIN
+    DIALOG  "", 0, 0, 0, 163, 78, , FCF_DLGBORDER | FCF_TITLEBAR
+            PRESPARAMS PP_FONTNAMESIZE, "9.WarpSans"
+    BEGIN
+        LTEXT           "Pixel Format:", 65535, 5, 64, 70, 8, DT_VCENTER
+        COMBOBOX        "32bits", 112, 76, 22, 82, 52, NOT CBS_SIMPLE | CBS_DROPDOWNLIST
+        LTEXT           "Preferred Encoding:", 65535, 5, 52, 70, 8, DT_VCENTER
+        COMBOBOX        "Hextile", 113, 76, 9, 82, 52, NOT CBS_SIMPLE | CBS_DROPDOWNLIST
+        AUTOCHECKBOX    "Request shared session", 114, 5, 39, 114, 10
+        AUTOCHECKBOX    "View only", 115, 5, 29, 114, 10
+        AUTOCHECKBOX    "Deiconify on Bell", 116, 5, 19, 114, 10
+        DEFPUSHBUTTON   "~OK", 1, 5, 3, 50, 12
+        PUSHBUTTON      "~Cancel", 2, 57, 3, 50, 12
+    END
+END
+
+CODEPAGE 850
+DLGTEMPLATE 120
+BEGIN
+    DIALOG  "PM VNC Viewer - authentication", 0, 0, 0, 180, 37, , FCF_DLGBORDER | FCF_TITLEBAR
+            PRESPARAMS PP_FONTNAMESIZE, "9.WarpSans"
+    BEGIN
+        ICON            1, 65535, 5, 19, 20, 16
+        LTEXT           "HelpDesk password:", 65535, 33, 22, 70, 8, DT_VCENTER
+        ENTRYFIELD      "", 121, 107, 23, 66, 7, ES_MARGIN | ES_UNREADABLE
+        CTEXT           "[hint: 'helpdesk']", 65535, 107, 3, 66, 12
+        DEFPUSHBUTTON   "~OK", 1, 5, 3, 48, 12
+        PUSHBUTTON      "~Cancel", 2, 55, 3, 48, 12
+    END
+END
+
+CODEPAGE 850
+DLGTEMPLATE 130
+BEGIN
+    DIALOG  "", 0, 0, 0, 243, 77, , FCF_DLGBORDER | FCF_TITLEBAR
+            PRESPARAMS PP_FONTNAMESIZE, "9.WarpSans"
+    BEGIN
+        ICON            1, 65535, 5, 56, 20, 16
+        MLE             "", 131, 32, 19, 209, 55, MLS_WORDWRAP | MLS_VSCROLL | MLS_READONLY | MLS_IGNORETAB
+                        PRESPARAMS PP_BACKGROUNDCOLOR, 0x00CCCCCCL
+        DEFPUSHBUTTON   "~OK", 1, 32, 3, 40, 12
+    END
+END
+
+CODEPAGE 850
+DLGTEMPLATE 300
+BEGIN
+    DIALOG  "About", 65535, 46, 66, 219, 56, , FCF_DLGBORDER | FCF_TITLEBAR
+            PRESPARAMS PP_FONTNAMESIZE, "9.WarpSans.Bold"
+    BEGIN
+        PUSHBUTTON      "OK", 1, 92, 4, 40, 14
+        ICON            1, 65535, 6, 25, 0, 0
+        CTEXT           "PM VNC Viewer 1.04 for OS/2 and eComstation", 65535, 37, 36, 170, 14, DT_VCENTER
+        CTEXT           "Open Watcom 1.8 Version - May 2009", 65535, 37, 28, 170, 8, DT_VCENTER
+    END
+END
+

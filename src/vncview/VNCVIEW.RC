@@ -1,0 +1,79 @@
+#define INCL_NLS
+#include <os2.h>
+
+POINTER 1  "Pointer1.ptr"
+
+POINTER 2  "Pointer2.ptr"
+
+CODEPAGE 850
+MENU 192 
+BEGIN
+  MENUITEM "Key ~Toggle", 193, MIS_TEXT
+  MENUITEM "Key ~Down", 194, MIS_TEXT
+  MENUITEM "Key ~Up", 195, MIS_TEXT
+END
+
+CODEPAGE 850
+MENU 200 
+BEGIN
+  MENUITEM "", 65535, MIS_SEPARATOR, MIA_DISABLED
+  MENUITEM "Connection ~options...\tAlt-O", 201, MIS_TEXT
+  MENUITEM "Connection ~info\tAlt-I", 202, MIS_TEXT
+  MENUITEM "Request screen ~refresh\tAlt-R", 203, MIS_TEXT
+  MENUITEM "", 65535, MIS_SEPARATOR, MIA_DISABLED
+  MENUITEM "Cop~y\tAlt-Y", 211, MIS_TEXT
+  MENUITEM "~Paste\tAlt-P", 212, MIS_TEXT
+  MENUITEM "", 65535, MIS_SEPARATOR, MIA_DISABLED
+  MENUITEM "Send ~Control Key\tAlt-C Toggle", 220, MIS_TEXT | MIS_SUBMENU
+  BEGIN
+    MENUITEM "Ctrl Key ~Toggle", 221, MIS_TEXT
+    MENUITEM "Ctrl Key ~Down", 222, MIS_TEXT
+    MENUITEM "Ctrl Key ~Up", 223, MIS_TEXT
+  END
+  MENUITEM "Send ~Alt Key\tAlt-A Toggle", 230, MIS_TEXT | MIS_SUBMENU
+  BEGIN
+    MENUITEM "Alt Key ~Toggle", 231, MIS_TEXT
+    MENUITEM "Alt Key ~Down", 232, MIS_TEXT
+    MENUITEM "Alt Key ~Up", 233, MIS_TEXT
+  END
+  MENUITEM "Send ~Function Key", 250, MIS_TEXT | MIS_SUBMENU
+  BEGIN
+    MENUITEM "F1", 251, MIS_TEXT
+    MENUITEM "F2", 252, MIS_TEXT
+    MENUITEM "F3", 253, MIS_TEXT
+    MENUITEM "F4", 254, MIS_TEXT
+    MENUITEM "F5", 255, MIS_TEXT
+    MENUITEM "F6", 256, MIS_TEXT
+    MENUITEM "F7", 257, MIS_TEXT
+    MENUITEM "F8", 258, MIS_TEXT
+    MENUITEM "F9", 259, MIS_TEXT
+    MENUITEM "F10", 260, MIS_TEXT
+    MENUITEM "F11", 261, MIS_TEXT
+    MENUITEM "F12", 262, MIS_TEXT
+  END
+  MENUITEM "", 65535, MIS_SEPARATOR, MIA_DISABLED
+  MENUITEM "Send C-A-~D\tAlt-D", 240, MIS_TEXT
+  MENUITEM "Send Ctrl-~Esc\tAlt-E", 241, MIS_TEXT
+  MENUITEM "Send Alt-TAB\tAlt-T", 242, MIS_TEXT
+  MENUITEM "", 65535, MIS_SEPARATOR, MIA_DISABLED
+  MENUITEM "A~bout VNC Viewer...\tAlt-B", 204, MIS_TEXT
+END
+
+CODEPAGE 850
+ACCELTABLE 1 
+BEGIN
+  "a",    231,    CHAR, ALT
+  "b",    204,    CHAR, ALT
+  "c",    221,    CHAR, ALT
+  "d",    240,    CHAR, ALT
+  "e",    241,    CHAR, ALT
+  "i",    202,    CHAR, ALT
+  "o",    201,    CHAR, ALT
+  "p",    212,    CHAR, ALT
+  "r",    203,    CHAR, ALT
+  "t",    242,    CHAR, ALT
+  "y",    211,    CHAR, ALT
+END
+
+
+RCINCLUDE "VNCVIEW.dlg"

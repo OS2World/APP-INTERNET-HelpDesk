@@ -1,0 +1,54 @@
+/*****************************************************************************/
+/* hdhost.rc
+ *
+ * HelpDesk for OS/2 - v1.00
+ * Copyright 2018 OS/2 VOICE      - all rights reserved
+ * Copyright 2018 Richard L Walsh - all rights reserved
+ *
+ */
+/*****************************************************************************/
+
+#ifndef OS2_INCLUDED
+   #include <os2.h>
+#endif
+
+#include "hdhost.h"
+
+DLGTEMPLATE MAIN_DLG LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "HelpDesk", MAIN_DLG, 32, 32, 188, 200, 0,
+            FCF_SYSMENU | FCF_TITLEBAR | FCF_TASKLIST
+            PRESPARAMS PP_BACKGROUNDCOLOR, 0x00DFDFDFL
+            PRESPARAMS PP_FONTNAMESIZE, "9.WarpSans"
+    BEGIN
+        GROUPBOX        "ABOUT_LBL", ABOUT_LBL, 8, 136, 172, 58
+                        PRESPARAMS PP_FONTNAMESIZE, "9.WarpSans Bold"
+        LTEXT           "ABOUT_TXT", ABOUT_TXT, 12, 138, 164, 47, 
+                        DT_WORDBREAK | NOT WS_GROUP
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00000000L
+        LTEXT           "CLIENT_LBL", CLIENT_LBL, 9, 120, 171, 8, DT_MNEMONIC
+        ENTRYFIELD      "", CLIENT_EF, 10, 110, 74, 8, ES_MARGIN
+        LTEXT           "CLIENT_TXT",
+                        CLIENT_TXT, 94, 100, 86, 20, DT_WORDBREAK | NOT WS_GROUP
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00000000L
+        LTEXT           "NAME_LBL", NAME_LBL, 9, 94, 171, 8, DT_MNEMONIC
+        ENTRYFIELD      "", NAME_EF, 10, 84, 74, 8, ES_MARGIN
+        LTEXT           "NAME_TXT", NAME_TXT, 94, 74, 86, 20,
+                        DT_WORDBREAK | NOT WS_GROUP
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00000000L
+        LTEXT           "ADDR_LBL", ADDR_LBL, 9, 68, 171, 8, DT_MNEMONIC
+        ENTRYFIELD      "", ADDR_EF, 10, 58, 74, 8, ES_MARGIN
+        LTEXT           "ADDR_TXT", 
+                        ADDR_TXT, 94, 48, 86, 20, DT_WORDBREAK | NOT WS_GROUP
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00000000L
+        PUSHBUTTON      "GETIP_BTN", GETIP_BTN, 27, 42, 40, 12
+        CTEXT           "", ERROR_TXT, 8, 31, 172, 8, DT_VCENTER
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+        PUSHBUTTON      "CANCEL_BTN", CANCEL_BTN, 34, 13, 40, 14
+        PUSHBUTTON      "OK_BTN", OK_BTN, 90, 13, 64, 14
+        CTEXT           "PROJECT_TXT", PROJECT_TXT, 0, 0, 188, 8, DT_VCENTER
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00000000L
+                        PRESPARAMS PP_BACKGROUNDCOLOR, 0x00CFCFCFL
+    END
+END
+

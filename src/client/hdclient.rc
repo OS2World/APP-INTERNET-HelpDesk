@@ -1,0 +1,39 @@
+/*****************************************************************************/
+/* hdclient.rc
+ *
+ * HelpDesk for OS/2 - v1.00
+ * Copyright 2018 OS/2 VOICE      - all rights reserved
+ * Copyright 2018 Richard L Walsh - all rights reserved
+ *
+ */
+/*****************************************************************************/
+
+#include <os2.h>
+#include "hdclient.h"
+
+DLGTEMPLATE MAIN_DLG LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Title", MAIN_DLG, 32, 32, 208, 212, 0,
+            FCF_SYSMENU | FCF_TITLEBAR | FCF_TASKLIST
+            PRESPARAMS PP_BACKGROUNDCOLOR, 0x00DFDFDFL
+            PRESPARAMS PP_FONTNAMESIZE, "9.WarpSans"
+    BEGIN
+        GROUPBOX        "ABOUT_LBL", ABOUT_LBL, 10, 99, 188, 106
+                        PRESPARAMS PP_FONTNAMESIZE, "9.WarpSans Bold"
+        LTEXT           "ABOUT_TXT", ABOUT_TXT, 18, 101, 172, 93,
+                        DT_WORDBREAK | NOT WS_GROUP
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00000000L
+        GROUPBOX        "ALERT_LBL", ALERT_LBL, 10, 34, 188, 58
+                        PRESPARAMS PP_FONTNAMESIZE, "9.WarpSans Bold"
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00D40000L
+        LTEXT           "ALERT_TXT", ALERT_TXT, 18, 36, 172, 45,
+                        DT_WORDBREAK | NOT WS_GROUP
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00000000L
+        PUSHBUTTON      "~Cancel", CANCEL_BTN, 54, 13, 40, 14, WS_GROUP
+        DEFPUSHBUTTON   "~OK", OK_BTN, 114, 13, 40, 14
+        CTEXT           "Project text", PROJECT_TXT, 0, 0, 208, 8, DT_VCENTER
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00000000L
+                        PRESPARAMS PP_BACKGROUNDCOLOR, 0x00CFCFCFL
+    END
+END
+

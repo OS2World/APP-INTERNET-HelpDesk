@@ -1,0 +1,293 @@
+_______________________________________________________________________________
+_______________________________________________________________________________
+
+  HelpDesk for OS/2 - v1.00
+  Copyright (C) 2018 OS/2 VOICE      - All Rights Reserved
+  Copyright (C) 2018 Richard L Walsh - All Rights Reserved
+_______________________________________________________________________________
+
+  HelpDesk for OS/2 is a project of OS/2 VOICE (www.os2voice.org).
+  It provides a simple and secure remote control package that lets
+  you view and modify a client's OS/2 system on demand using VNC
+  over SSH. It is pre-configured and self-contained - no additional
+  configuration or software other than InfoZip's zip/unzip is required.
+
+  Please review these topics:
+
+  Using HelpDesk
+    - newClient.exe
+    - runHelpDesk.cmd
+    - HelpDesk.exe
+
+  Connection Issues
+    - Host IP Address
+    - Port Forwarding
+    - Alternate Ports
+
+  Security
+    - Host Security Key
+    - Client Security Keys
+    - etc\passwd
+
+  Support
+
+  License and Acknowledgements
+
+
+_______________________________________________________________________________
+_______________________________________________________________________________
+
+  Using HelpDesk
+_______________________________________________________________________________
+
+  HelpDesk requires no setup or configuration and is ready to use as-is.
+  Everything you need is located in the top-level 'helpdesk' directory.
+
+  Note: to act as a HelpDesk host, you may have to configure your router.
+  See "Port Forwarding" below.
+
+
+  newClient.exe
+  -------------
+  When someone needs your assistance, run this to build 'HelpDesk.exe',
+  a personalized HelpDesk Client package with a unique security key.
+
+  Fill in the client's name, your name, and your IP address or domain name.
+  All 3 will be shown to the client. If needed, press 'Get My IP' to fetch
+  your current address. To pre-fill these fields, pass them as parameters
+  to newClient from a program object or batch file:
+    newClient.exe [clientName | '*'] [yourName | '*'] [yourIP]
+
+  When done, press 'Create package'. A new copy of 'HelpDesk.exe' will
+  be created in the top-level directory. Attach it to an email (as-is,
+  not zipped). Instruct the client to detach the file, put it anywhere,
+  then doubleclick on it at the agreed-upon time.
+
+  Note: many email providers will refuse to deliver an email that has a
+  '.exe' attached (regardless of whether it is zipped). We suggest you
+  rename the file as 'HelpDesk.exq' before sending it, then have your
+  client restore the correct extension before running it.
+
+
+  runHelpDesk.cmd
+  ---------------
+  When the time comes to connect with the client, run this file.
+  It will start the HelpDesk Daemon and wait for an incoming connection.
+  Note: the daemon won't start until you've built your first package.
+
+  After the user connects, VNC Viewer will popup a connection dialog.
+  Accept the connection then enter the password (always "helpdesk").
+
+  A window displaying the client's screen will appear. Use it to control
+  the client's system in any way that VNC permits. When you close this
+  window, the client's HelpDesk session will terminate.
+
+
+  HelpDesk.exe
+  ------------
+  This is the HelpDesk Client package for a specific user - do not send
+  it to anyone else. After you've sent it, you can delete your copy.
+
+  When the client runs HelpDesk.exe, he is greeted by an introductory
+  dialog that identifies both you and him by name. If he chooses to
+  connect, a console window named "HelpDesk Session" appears showing
+  the connection status. Upon connecting to your system, a "Welcome to
+  HelpDesk" banner will be displayed.
+
+  Nothing more is displayed to the client until you close VNC Viewer
+  and end the session. HelpDesk then kills the client's copy of PMVNC,
+  deletes all temporary files, and advises that the session has ended.
+
+  If the user needs to terminate the session prematurely (e.g. unable
+  to connect), he can press Ctrl-Break to have HelpDesk do an orderly
+  shutdown, the same as if the session had ended normally.
+
+
+_______________________________________________________________________________
+
+  Connection Issues
+_______________________________________________________________________________
+
+  Host IP Address
+  ---------------
+  By default, HelpDesk.exe tries to connect to the IP address entered
+  when you built it. If your IP changes, you can easily override that
+  default without having to build a new package.
+
+  In a text editor, create a new file named 'helpdesk.ip' and enter
+  your current address or domain name. Email this to the client and
+  instruct him to put the file in the same directory as 'helpdesk.exe'.
+
+
+  Port Forwarding
+  ---------------
+  If the system that hosts HelpDesk is connected to a router, you will
+  probably have to enable Port Forwarding for Port 22. This instructs
+  your router to send all incoming traffic for Port 22 (i.e. SSH connect
+  requests from HelpDesk clients) to the machine that is running the
+  HelpDesk Daemon. Most routers provide a web interface to set this up.
+
+  To test whether this is configured correctly, create a HelpDesk Client
+  package using your current address. Run it, then press 'Connect'.
+  If the HelpDesk Daemon is running, you should get VNC Viewer's popup;
+  otherwise, you should see "Connection refused" in the client's
+  HelpDesk Session window. Any other result -including a security alert-
+  indicates Port Forwarding is not set up properly.
+
+
+  Alternate Ports
+  ---------------
+  Hosts that already run an SSH server on Port 22 may want to configure
+  HelpDesk to use another port. If you make this change for the host,
+  you must set up every Client package to use this port as well.
+
+  * Host-side: open 'runHelpDesk.cmd' in an editor. Toward the top is
+    a line where you can set the port number. The Daemon can monitor
+    multiple ports - separate each number with a space.
+    e.g. "portNbr = 22 2222"
+
+  * Client-side: when running 'newClient.exe', fill in your IP address
+    or domain name as always, then append a colon and the port number.
+    e.g. "192.168.255.101:2222" or "myname.dyndns.org:2222"
+
+  Note: using an alternate port may enable connections from clients who
+  are behind a firewall that blocks port 22. Try using the port for a
+  well-known service such as http (80) or some flavor of email that is
+  less likely to be blocked. After choosing a port, modify 'runHelpDesk'
+  to monitor both port 22 and the alternate port (as described above).
+
+
+_______________________________________________________________________________
+
+  Security
+_______________________________________________________________________________
+
+  Host Security Key
+  -----------------
+  The host's private/public RSA keys are created the first time you
+  build a client package. 'helpdesk\host\ssh_host_rsa_key' holds the
+  private key; 'helpdesk\client\knwnhost' contains the public key.
+
+  Your host keys should be protected and should never change. If they
+  do, all client packages created with those keys will become unusable.
+  To prevent this, HelpDesk backs-up your keys in 'helpdesk\save'.
+  When you install a new version of HelpDesk, copy your existing 'save'
+  directory to the new installation to continue using the same keys.
+
+
+  Client Security Keys
+  --------------------
+  Each client package contains a unique private security key. The public
+  key for that package is appended to 'helpdesk\host\authorized_keys'.
+  Your security as a HelpDesk host depends upon this file.
+
+  Each line in the file contains these components:
+
+  * command="vncview 127.0.0.1:7777(<client's name>)",no-pty
+    This is the key to your security. It ensures that the only thing
+    a client connecting with this key can do is start VNC Viewer.
+    In addition, the client is denied a terminal to prevent hacking
+    if the client package is used maliciously. DO NOT CHANGE THIS!
+
+  * ssh-rsa [followed by 713 characters ending with "= "]
+    The client's public key - its presence here allows him to connect.
+
+  * [client's name] [date] [your IP]
+    Starting around column 770 is a comment area where HelpDesk stores
+    the client's name, the date the key was created, and the IP address
+    you used when you created the package. HelpDesk doesn't use this info
+    but puts it here for your use.
+
+  To temporarily disable a client package, use '#' to comment-out its line.
+  To permanently disable a client package, delete its line.
+
+
+  etc\passwd
+  ----------
+  The file 'helpdesk\host\etc\passwd' is recreated with current system
+  info every time you run the HelpDesk Daemon ('runHelpDesk.cmd').
+  Do not save or back-up this file.
+
+
+_______________________________________________________________________________
+
+  Support
+_______________________________________________________________________________
+
+  HelpDesk for OS/2 is designed to be a black-box that "just works" without
+  the need for any configuration or additional software. As such, the need
+  for support should be minimal. However, if the need arises, you can write
+  to <helpdesk@os2voice.org> for assistance.
+
+
+_______________________________________________________________________________
+
+  License and Acknowledgements
+_______________________________________________________________________________
+
+  HelpDesk for OS/2 combines original content with third-party works listed
+  below. This License covers its original content.
+
+  1. You may freely distribute UNMODIFIED copies of HelpDesk for OS/2 in
+     both source and binary form without restrictions.
+
+  2. You may freely distribute MODIFIED copies of HelpDesk for OS/2 in
+     both source and binary form provided your distribution complies
+     with the following restrictions:
+     a. You must remove any references to OS/2 VOICE which suggest that
+        your distribution is sponsored by or associated with OS/2 VOICE.
+     b. Your modified version of HelpDesk for OS/2 must be distributed
+        under a significantly different name. Further, the names of
+        HelpDesk for OS/2's primary executables ('newClient.exe',
+        'runHelpDesk.cmd', and 'HelpDesk.exe') must also be significantly
+        different.
+
+  3. All distributions of HelpDesk for OS/2, whether modified or unmodified,
+     must include a verbatim copy of this License and all applicable
+     copyright notices.
+
+  4. Unless required by applicable law or agreed to in writing, Licensor
+     provides the Work (and each Contributor provides its Contributions)
+     on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+     either express or implied, including, without limitation, any warranties
+     or conditions of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS
+     FOR A PARTICULAR PURPOSE. You are solely responsible for determining
+     the appropriateness of using or redistributing the Work and assume any
+     risks associated with Your exercise of permissions under this License.
+
+  5. In no event and under no legal theory, whether in tort (including
+     negligence), contract, or otherwise, unless required by applicable
+     law (such as deliberate and grossly negligent acts) or agreed to in
+     writing, shall any Contributor be liable to You for damages, including
+     any direct, indirect, special, incidental, or consequential damages of
+     any character arising as a result of this License or out of the use or
+     inability to use the Work (including but not limited to damages for
+     loss of goodwill, work stoppage, computer failure or malfunction, or
+     any and all other commercial damages or losses), even if such Contributor
+     has been advised of the possibility of such damages.
+
+  HelpDesk for OS/2 uses these third-party works:
+
+  * OpenSSH v3.4p1
+    (c) 1995 Tatu Ylonen et al.
+    OS/2 port by nickk and Andrew Zabolotny
+    distribution packaged by Doug Rickman
+
+  * PMVNC Server v1.02
+    based on WinVNC v3.3.7
+    (c) 1997 AT&T Labs Cambridge et al.
+    OS/2 port (c) Eugene Romanenko
+
+  * VNC Viewer v1.04
+    (c) 1999 Software Research Associates, Inc. et al.
+    OS/2 port by Akira Hatakeyama and Michael Greene
+
+  * MyIP v0.05
+    (c) 2006 Alex Taylor et al.
+
+
+_______________________________________________________________________________
+_______________________________________________________________________________
+
+R L Walsh - 2018/09/14
+_______________________________________________________________________________
